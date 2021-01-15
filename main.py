@@ -1,32 +1,8 @@
 import os
-from contextlib import contextmanager
 from research import Research
 from collections import Counter
-
-"""class DirReader(object):
-    def __iter__(self):
-        return self
-    def __init__(self, directory):
-        self.directory = directory
-    def __next__(self):
-
-path = "\data"
-for d, dirs, files in os.walk(path):
-    for f in files:
-        print(f)"""
-
-
-
-
-@contextmanager
-def file_reading(file_path):
-    file = open(file_path, "r")
-    try:
-        yield file
-    except OSError:
-        print("Error")
-    finally:
-        file.close()
+from filereader import FileReader
+from dirreader import DirReader
 
 
 def get_research(research):
@@ -78,28 +54,13 @@ def write_hours(hour_machines):
         machines = hour_machines[hour]
         c = Counter(machines)
         for machines in c:
-            print(c[machines])
             file.write(str(machines) + ' (' + str(c[machines]) + '), ')
 
 
-
-path = "C:\\Users\\1\\PycharmProjects\\exam\\data"
-
-# Выбираем файлы без указания расширения
-file = []
-for d, dirs, files in os.walk(path):
-    for f in files:
-        filename, file_extention = os.path.splitext(f)
-        if not file_extention:
-            file.append(os.path.join(d, f))
-            print(filename)
-
-# Файлы с длинной последовательности больше 50
 research = []
-for fi in file:
-    with file_reading(fi) as record_reader:
-        for _ in range(1):
-            next(record_reader)
+
+for file_name in DirReader("C:\\Users\\1\\PycharmProjects\\exam\\data"):
+    with FileReader(file_name) as record_reader:
         for record in record_reader:
             record = record.split('\t')
             if len(record[4]) >= 50:
@@ -109,7 +70,7 @@ for fi in file:
 write_research(get_research(research))
 
 # Создание директории
-path_derectory = "\hours"
+path_derectory = "C:\\Users\\1\\PycharmProjects\\exam\\hours"
 create_directory(path_derectory)
 os.chdir(path_derectory)
 
