@@ -10,7 +10,7 @@ from collections import Counter
         self.directory = directory
     def __next__(self):
 
-path = "C:\\Users\\1\\PycharmProjects\\exam\\data"
+path = "\data"
 for d, dirs, files in os.walk(path):
     for f in files:
         print(f)"""
@@ -109,7 +109,7 @@ for fi in file:
 write_research(get_research(research))
 
 # Создание директории
-path_derectory = "C:\\Users\\1\\PycharmProjects\\exam\\hours"
+path_derectory = "\hours"
 create_directory(path_derectory)
 os.chdir(path_derectory)
 
